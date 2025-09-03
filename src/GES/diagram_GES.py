@@ -29,7 +29,7 @@ paper_counts_per_year.plot(kind='bar', color=global_colors[None], width=0.8)
 
 # Achsentitel in fett und größer
 my_plt.xlabel('Year of Publication', fontweight='bold')
-my_plt.ylabel('Number of\nPapers/Articles', fontweight='bold')
+my_plt.ylabel('Number of\nPapers and Articles', fontweight='bold')
 
 # x-Achsenbeschriftungen schräg anzeigen (45 Grad)
 my_plt.xticks(rotation=45)

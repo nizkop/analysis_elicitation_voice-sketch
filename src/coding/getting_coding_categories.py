@@ -60,7 +60,8 @@ def get_coding_dot_chart(coding_data, limit_to:CODING_CATEGORIES, fig=None, ax=N
 
 
     color, alpha, marker, linestyle = get_color(limit_to)
-    ax.plot([a["task_name"] for a in coding_data], heights, marker = marker, linestyle=linestyle, color=color, alpha=alpha, label=limit_to.value)
+    ax.plot([a["task_name"] for a in coding_data], heights, marker = marker, linestyle=linestyle, color=color,
+            markeredgewidth=2,linewidth=2, alpha=alpha, label=limit_to.value)
     legend_entry = Line2D([0], [0], color=color, marker=marker, linestyle=linestyle, label=limit_to.value)
     # legend2 = update_legend(ax, legend2, new_labels=[limit_to.value])
     ax.set_ylim(0, 1)
@@ -120,13 +121,15 @@ def run_get_coding_categories():
     # fig, ax, legend1, reference_order, legend_entry7 = get_coding_categories(limit_to=CODING_CATEGORIES.EMPTYMOD, fig=None, ax=None, reference_order=None)
 
     fig, ax, legend1, reference_order, legend_entry4 = get_coding_categories(limit_to=CODING_CATEGORIES.FULLMOD, fig=None, ax=None, reference_order=None)
-    fig, ax, xx, reference_order, legend_entry5 = get_coding_categories(limit_to=CODING_CATEGORIES.LOCATIONMOD, fig=fig,
-                                                                        ax=ax, reference_order=reference_order)
+
     fig, ax, xx, reference_order, legend_entry6 = get_coding_categories(limit_to=CODING_CATEGORIES.OPERATIONMOD, fig=fig,
                                                                         ax=ax, reference_order=reference_order)
     fig, ax, xx, reference_order, legend_entry1 = get_coding_categories(limit_to=CODING_CATEGORIES.FULLMODLESS, fig=fig, ax=ax, reference_order=reference_order)
     fig, ax, xx, reference_order, legend_entry2 = get_coding_categories(limit_to=CODING_CATEGORIES.OPERATIONMODLESS, fig=fig, ax=ax, reference_order=reference_order)
+    fig, ax, xx, reference_order, legend_entry5 = get_coding_categories(limit_to=CODING_CATEGORIES.LOCATIONMOD, fig=fig,
+                                                                        ax=ax, reference_order=reference_order)
     fig, ax, xx, reference_order, legend_entry3 = get_coding_categories(limit_to=CODING_CATEGORIES.LOCATIONMODLESS, fig=fig, ax=ax, reference_order=reference_order)
+
 
 
 

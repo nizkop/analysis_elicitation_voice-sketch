@@ -57,7 +57,7 @@ global_colors = {#TODO zu Verzeichnis in Ausarbeitung = ?
     "low": "#E7E3D7",
     "medium": "#C1BAA0",
     "high": "#A39572",
-    "veryhigh": "#7C7251",
+    "veryhigh": "#968469",#"#7C7251", 93885A, 8F7F63
 
 
     # Category sizes:

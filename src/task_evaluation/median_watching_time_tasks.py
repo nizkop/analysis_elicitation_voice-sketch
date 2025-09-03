@@ -35,7 +35,11 @@ def plot_box_task(collected_data: list[dict], x_name: str, xlabel:str, break_axi
         max_outlier = max([max(i) for i in x_list])
         ax2.set_ylim(max_outlier-max_outlier/100,max_outlier+max_outlier/100)  # outliers only
         hochster_wishker = max([np.percentile(y_values, 75) for y_values in x_list])
-        ax.set_ylim(0, hochster_wishker+hochster_wishker/10)  # most of the data
+        if x_name == "times":
+            factor = 1.3#2.4
+        elif x_name == "switch_amount":
+            factor = 1.4#2.4
+        ax.set_ylim(0, hochster_wishker+hochster_wishker/factor)  # most of the data
 
         ax2.set_yticks([max_outlier])
         ax2.set_yticklabels([f"{max_outlier:.0f}"])
@@ -44,7 +48,7 @@ def plot_box_task(collected_data: list[dict], x_name: str, xlabel:str, break_axi
         ax2.spines.bottom.set_visible(False)
         ax.spines.top.set_visible(False)
         ax2.xaxis.tick_top()
-        # ax2.tick_params(labeltop=False)  # don't put tick labels at the top
+        # ax2.tick_params(labeltop=False)  # no tick labels at the top
         ax.xaxis.tick_bottom()
 
         d = .5  # Schrägheitsmaß der Unterbrechungslinie
@@ -70,12 +74,6 @@ def plot_box_task(collected_data: list[dict], x_name: str, xlabel:str, break_axi
                            for group, color in global_colors.items()
                            if group is not None and "group" in group and group != "groupP"
                           ]
-    # fig.legend(handles=legend_elements, title=names["group"] + ":",
-    #            loc='upper right', bbox_to_anchor=(0.575, 1.08), ncol=3)
-    # ax.set_ylim(bottom=0)
-    # if x_name == "times":
-    #         ax.yaxis.set_label_position("right")  # Y-Achsen-Beschriftung rechts
-    #         ax.yaxis.tick_right()                  # Y-Ticklabels rechts
     legend = fig.legend(handles=legend_elements, title=names["group"] + ":",
                             loc='upper left',
                             bbox_to_anchor=(0.5685, 1.13),
@@ -118,7 +116,7 @@ def get_box_task(x_name, break_axis:bool=True):
 
     df_switches = pd.DataFrame(csv_zeilen_switch)
     df_switches.to_csv("boxplot_switches.csv", sep=",", index=False)
-    fig, ax, ax2, legend = plot_box_task( collected_data, x_name, xlabel=xlabel, break_axis=break_axis)
+    fig, ax, ax2, legend = plot_box_task(collected_data, x_name, xlabel=xlabel, break_axis=break_axis)
 
     if x_name == "times":
         return df_times, fig, ax, ax2, legend
@@ -128,5 +126,5 @@ def get_box_task(x_name, break_axis:bool=True):
 
 
 if __name__ == "__main__":
-    get_box_task("times", True)
+    # get_box_task("times", True)
     get_box_task("switch_amount", True)
