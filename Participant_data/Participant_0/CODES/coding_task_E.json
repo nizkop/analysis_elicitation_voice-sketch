@@ -1,0 +1,17 @@
+{
+    "OPERATION": {
+        "SYMBOL": null,
+        "EXAMPLE": null,
+        "KNOWLEDGE": null,
+        "WORDS": null
+    },
+    "LOCATION": {
+        "SELECTION": null,
+        "ADDRESS": null,
+        "ENTRY": null,
+        "POSITION": null,
+        "KNOWLEDGE": null,
+        "CONNECTED-ANNOTATION": null
+    },
+    "GUI": null
+}
