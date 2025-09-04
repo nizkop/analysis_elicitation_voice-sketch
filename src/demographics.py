@@ -1,7 +1,7 @@
 import numpy as np
 
 from src.plt_settings import my_plt, save_my_figures, size_2, figure_width, default_height
-from src.participants import participants, demographic_options, Language
+from participants import participants, demographic_options, Language
 from src.color_codes import global_colors
 from src.get_descriptions import names
 from src.languages.translation import translation
@@ -38,8 +38,8 @@ def get_demographic_distribution(property_key: str, translation_active: bool = T
         height = default_height
         bbox_to_anchor = (0.613, 1.16)
         if property_key == 'age':
-            height /= 2
-            bbox_to_anchor = (0.613, 1.31)
+            height *= 0.75
+            bbox_to_anchor = (0.602, 1.21)# für halbe Höhe (0.613, 1.31)
         fig, ax = my_plt.subplots(figsize=(figure_width,height))
         own_figure = True
     else:

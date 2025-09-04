@@ -18,7 +18,7 @@ names = {
     "gender": "Gender [ ]",
     "leftHandedOrRightHanded": "Dominant Hand [ ]",
     "de": "Germany",
-    "is": "Island",
+    "is": "Iceland",
     "answers%": r'Given Answers [\%]',
     "experience": 'Experience with ...',
     "modality": "Chosen Modality [ ]",

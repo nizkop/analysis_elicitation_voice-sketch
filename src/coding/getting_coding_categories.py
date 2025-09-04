@@ -120,29 +120,29 @@ def get_coding_categories(limit_to:CODING_CATEGORIES, fig=None, ax=None, referen
 def run_get_coding_categories():
     # fig, ax, legend1, reference_order, legend_entry7 = get_coding_categories(limit_to=CODING_CATEGORIES.EMPTYMOD, fig=None, ax=None, reference_order=None)
 
-    fig, ax, legend1, reference_order, legend_entry4 = get_coding_categories(limit_to=CODING_CATEGORIES.FULLMOD, fig=None, ax=None, reference_order=None)
+    fig, ax, legend_FULLMOD, reference_order, legend_entry_FULLMOD = get_coding_categories(limit_to=CODING_CATEGORIES.FULLMOD, fig=None, ax=None, reference_order=None)
 
-    fig, ax, xx, reference_order, legend_entry6 = get_coding_categories(limit_to=CODING_CATEGORIES.OPERATIONMOD, fig=fig,
+    fig, ax, xx, reference_order, legend_entry_OPERATIONMOD = get_coding_categories(limit_to=CODING_CATEGORIES.OPERATIONMOD, fig=fig,
                                                                         ax=ax, reference_order=reference_order)
-    fig, ax, xx, reference_order, legend_entry1 = get_coding_categories(limit_to=CODING_CATEGORIES.FULLMODLESS, fig=fig, ax=ax, reference_order=reference_order)
-    fig, ax, xx, reference_order, legend_entry2 = get_coding_categories(limit_to=CODING_CATEGORIES.OPERATIONMODLESS, fig=fig, ax=ax, reference_order=reference_order)
-    fig, ax, xx, reference_order, legend_entry5 = get_coding_categories(limit_to=CODING_CATEGORIES.LOCATIONMOD, fig=fig,
+    fig, ax, xx, reference_order, legend_entry_FULLMODLESS = get_coding_categories(limit_to=CODING_CATEGORIES.FULLMODLESS, fig=fig, ax=ax, reference_order=reference_order)
+    fig, ax, xx, reference_order, legend_entryOPERATIONMODLESS = get_coding_categories(limit_to=CODING_CATEGORIES.OPERATIONMODLESS, fig=fig, ax=ax, reference_order=reference_order)
+    fig, ax, xx, reference_order, legend_entry_LOCATIONMOD = get_coding_categories(limit_to=CODING_CATEGORIES.LOCATIONMOD, fig=fig,
                                                                         ax=ax, reference_order=reference_order)
-    fig, ax, xx, reference_order, legend_entry3 = get_coding_categories(limit_to=CODING_CATEGORIES.LOCATIONMODLESS, fig=fig, ax=ax, reference_order=reference_order)
+    fig, ax, xx, reference_order, legend_entry_LOCATIONMODLESS = get_coding_categories(limit_to=CODING_CATEGORIES.LOCATIONMODLESS, fig=fig, ax=ax, reference_order=reference_order)
 
 
 
 
     legend2 = ax.legend(title=names["level"] +":",
-                        handles = [legend_entry4, legend_entry6, legend_entry5,
-                                   legend_entry1, legend_entry2, legend_entry3,
+                        handles = [legend_entry_FULLMOD, legend_entry_OPERATIONMOD, legend_entry_LOCATIONMOD,
+                                   legend_entry_FULLMODLESS, legend_entryOPERATIONMODLESS, legend_entry_LOCATIONMODLESS,
                                    ],
                         loc='upper left',
                         bbox_to_anchor=(0.4, 1.36),
                         ncol=2)
     ax.add_artist(legend2)
     set_topics_as_ticks_to_axis(fig=fig, ax=ax, extrawidth=0.4)
-    save_my_figures(f"agreement_ruffly_dots", bbox_extra_artists=[legend2, legend1], fig=fig)
+    save_my_figures(f"agreement_ruffly_dots", bbox_extra_artists=[legend2, legend_FULLMOD], fig=fig)
     fig.show()
 
 

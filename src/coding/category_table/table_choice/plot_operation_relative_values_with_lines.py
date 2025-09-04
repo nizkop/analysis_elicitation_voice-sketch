@@ -1,3 +1,4 @@
+from matplotlib import patches
 from matplotlib.lines import Line2D
 
 from src.Tasks.information_about_tasks_in_topic_order import set_topics_as_ticks_to_axis
@@ -14,7 +15,7 @@ def plot_operation_relative_values_with_lines(filename, df_percent, amount_of_ta
         y_columns = [col for col in df_percent.columns if col.startswith('operation')]
     elif coding_category == CODING_CATEGORIES.LOCATIONMODLESS:
         y_columns = [col for col in df_percent.columns if col.startswith('location')]
-    (fig, ax) = my_plt.subplots(figsize=(figure_width, default_height*0.7))
+    (fig, ax) = my_plt.subplots(figsize=(figure_width, default_height*0.75))
 
     y_columns.sort(key=len, reverse=True)
     for col in y_columns:
@@ -51,20 +52,50 @@ def get_legend(ax, coding_category:CODING_CATEGORIES):
             handles.append(line)
         return ax.legend(handles=handles, title=f"Coded Category in level {CODING_CATEGORIES.OPERATIONMODLESS.value}:",
                            loc='upper left', title_fontsize=size_2,
-                           bbox_to_anchor=(-0.0265, 1.4),
+                           bbox_to_anchor=(-0.0265, 1.38),
                            ncol=2)
     if coding_category == CODING_CATEGORIES.LOCATIONMODLESS:
+        entries_simple = ["location:entry", "location:pointing", "location:address"]
+        x_simple = -0.09
+        y_long = 1.458
+        y_simple = 1.534
+        entries_long = ["location:entry - location:address", "location:address - location:pointing",
+                      "location:entry - location:pointing",
+                      "location:entry - location:address - location:pointing"]
+        dummy_entries = ["location:entry", "location:entry", "location:entry"]*5
+        dummy_handles = []
+        for i in dummy_entries:
+            marker, color, label = get_color_style(i)
+            line = Line2D([0], [0], color=color, marker=marker, linestyle='-',
+                          label=label+r"°.°", alpha=0)
+            dummy_handles.append(line)
+        legend_dummy = ax.legend(handles=dummy_handles,
+                           title=f"Coded Category in level {CODING_CATEGORIES.LOCATIONMODLESS.value}:",
+                           loc='upper left', title_fontsize=size_2,# textcolor="white",
+                           bbox_to_anchor=(x_simple, y_simple+0.085), frameon=True,
+                           ncol=3)
+        for text in legend_dummy.get_texts():
+            text.set_color((1, 1, 1, 0))  # Weiß, mit alpha = 0
+        ax.add_artist(legend_dummy)
         handles = []
-        for i in [ "location:entry", "location:pointing", "location:address",
-                    "location:entry - location:address", "location:address - location:pointing",
-                   "location:entry - location:pointing",
-                    "location:entry - location:address - location:pointing"
-                  ]:
+        for i in entries_simple:
             marker, color, label = get_color_style(i)
             line = Line2D([0], [0], color=color, marker=marker, linestyle='-', label=label)
             handles.append(line)
-        return ax.legend(handles=handles,
-                         title=f"Coded Category in level {CODING_CATEGORIES.LOCATIONMODLESS.value}:",
+        legend=ax.legend(handles=handles,
+                  # title=f"Coded Category in level {CODING_CATEGORIES.LOCATIONMODLESS.value}:",
+                  loc='upper left', title_fontsize=size_2,
+                  bbox_to_anchor=(x_simple, y_simple),frameon=False,
+                  ncol=3)
+        ax.add_artist(legend)
+        handles = []
+        for i in entries_long:
+            marker, color, label = get_color_style(i)
+            line = Line2D([0], [0], color=color, marker=marker, linestyle='-', label=label)
+            handles.append(line)
+        legend2 = ax.legend(handles=handles,
+                         #title=f"Coded Category in level {CODING_CATEGORIES.LOCATIONMODLESS.value}:",
                          loc='upper left',title_fontsize=size_2,
-                         bbox_to_anchor=(+0.097, 1.83),
+                         bbox_to_anchor=(x_simple, y_long),frameon=False,
                          ncol=1)
+        return legend_dummy

@@ -39,7 +39,9 @@ def generate_difficulty_data(tasks, participants):
                 except KeyError:
                     perceived_difficulty["skipped/missunderstood"] = [p.id]
             else:
-                if p.id == "000":
+                if p.id == "000" and task.identifier == "7":
+                    continue
+                if p.id == "000" and task.identifier == "10":
                     continue
                 raise Exception("what happened?", p.id, task.identifier)
 
