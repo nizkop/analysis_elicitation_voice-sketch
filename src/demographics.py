@@ -1,7 +1,7 @@
 import numpy as np
 
 from src.plt_settings import my_plt, save_my_figures, size_2, figure_width, default_height
-from participants import participants, demographic_options, Language
+from src.participants import participants, demographic_options, Language
 from src.color_codes import global_colors
 from src.get_descriptions import names
 from src.languages.translation import translation

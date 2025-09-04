@@ -25,7 +25,7 @@ def get_coding_folder_for_participant(id: int, kind: TaskJsonKind = TaskJsonKind
      }
 
     dir = 'CODES_duplicate' if kind == TaskJsonKind.CODESconsistency else 'CODES'
-    os.mkdir(f"Participant_data/Participant_{id}/{dir}")
+    # os.mkdir(f"Participant_data/Participant_{id}/{dir}")
 
     for task in tasks:
         if task.get_group() != "P":
@@ -34,5 +34,5 @@ def get_coding_folder_for_participant(id: int, kind: TaskJsonKind = TaskJsonKind
 
 
 if __name__ == "__main__":
-    for i in range(116,117+1):
-        get_coding_folder_for_participant(id=i, kind = TaskJsonKind.CODESconsistency)
+    for i in range(0,1):
+        get_coding_folder_for_participant(id=i, kind = TaskJsonKind.CODES)
