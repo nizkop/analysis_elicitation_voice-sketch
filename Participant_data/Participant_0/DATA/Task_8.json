@@ -1,0 +1,48 @@
+{
+  "taskId": "8",
+  "userId": "2025-09-04T11:19:00.419Z",
+  "screenId": "12_screen_8",
+  "currentSheet": "sheet1",
+  "taskData": {
+    "voice": "",
+    "startTimeVoice": "",
+    "endTimeVoice": "",
+    "switchNumber": 2,
+    "currentSheet": 1,
+    "id": "8",
+    "description": "Calculation: E13 = SUM(E7:E11)",
+    "group": "B",
+    "resets": 0,
+    "language": "ENGLISH",
+    "picture_file_name": "task_8.png",
+    "taskNumber": 12,
+    "startTimeWatching": "2025-09-04T11:18:50.894Z",
+    "endTimeWatching": "2025-09-04T11:19:00.419Z",
+    "timeWatching": 9525,
+    "startTimeDrawing": "2025-09-04T11:18:59.080Z",
+    "endTimeDrawing": "2025-09-04T11:19:00.419Z",
+    "timeDrawing": 1339
+  },
+  "codes": {
+    "OPERATION": {
+      "SIMPLE": null,
+      "KNOWLEDGE": null,
+      "DETAILS": null
+    },
+    "EMPHASIS": null,
+    "EXAMPLE": {
+      "VERBAL": null,
+      "SAMPLE": null
+    },
+    "LOCATION": {
+      "SELECTION": null,
+      "EXL": null,
+      "ENTRY": null,
+      "POSITION": null,
+      "CONNECTEDANNOTATION": null
+    },
+    "CONNECTION": null,
+    "IMPLICATION": null,
+    "GUI": null
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "taskId": "6",
+  "userId": "2025-09-04T11:18:07.196Z",
+  "screenId": "8_screen_6",
+  "currentSheet": "sheet1",
+  "taskData": {
+    "voice": "",
+    "startTimeVoice": "",
+    "endTimeVoice": "",
+    "switchNumber": 4,
+    "currentSheet": 1,
+    "id": "6",
+    "description": "",
+    "group": "A",
+    "resets": 0,
+    "language": "ENGLISH",
+    "picture_file_name": "task_6.png",
+    "taskNumber": 8,
+    "startTimeWatching": "2025-09-04T11:17:54.268Z",
+    "endTimeWatching": "2025-09-04T11:18:07.196Z",
+    "timeWatching": 12928,
+    "startTimeDrawing": "2025-09-04T11:18:06.310Z",
+    "endTimeDrawing": "2025-09-04T11:18:07.196Z",
+    "timeDrawing": 886
+  },
+  "codes": {
+    "OPERATION": {
+      "SIMPLE": null,
+      "KNOWLEDGE": null,
+      "DETAILS": null
+    },
+    "EMPHASIS": null,
+    "EXAMPLE": {
+      "VERBAL": null,
+      "SAMPLE": null
+    },
+    "LOCATION": {
+      "SELECTION": null,
+      "EXL": null,
+      "ENTRY": null,
+      "POSITION": null,
+      "CONNECTEDANNOTATION": null
+    },
+    "CONNECTION": null,
+    "IMPLICATION": null,
+    "GUI": null
+  }
+}

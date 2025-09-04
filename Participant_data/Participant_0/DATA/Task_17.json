@@ -1,0 +1,48 @@
+{
+  "taskId": "17",
+  "userId": "2025-09-04T11:19:49.659Z",
+  "screenId": "16_screen_17",
+  "currentSheet": "sheet1",
+  "taskData": {
+    "voice": "",
+    "startTimeVoice": "",
+    "endTimeVoice": "",
+    "switchNumber": 2,
+    "currentSheet": 1,
+    "id": "17",
+    "description": "Calculation: Total hours/month, e.g. G13 = SUM(G7:G11)",
+    "group": "C",
+    "resets": 0,
+    "language": "ENGLISH",
+    "picture_file_name": "task_17.png",
+    "taskNumber": 16,
+    "startTimeWatching": "2025-09-04T11:19:38.902Z",
+    "endTimeWatching": "2025-09-04T11:19:49.659Z",
+    "timeWatching": 10757,
+    "startTimeDrawing": "2025-09-04T11:19:47.957Z",
+    "endTimeDrawing": "2025-09-04T11:19:49.659Z",
+    "timeDrawing": 1702
+  },
+  "codes": {
+    "OPERATION": {
+      "SIMPLE": null,
+      "KNOWLEDGE": null,
+      "DETAILS": null
+    },
+    "EMPHASIS": null,
+    "EXAMPLE": {
+      "VERBAL": null,
+      "SAMPLE": null
+    },
+    "LOCATION": {
+      "SELECTION": null,
+      "EXL": null,
+      "ENTRY": null,
+      "POSITION": null,
+      "CONNECTEDANNOTATION": null
+    },
+    "CONNECTION": null,
+    "IMPLICATION": null,
+    "GUI": null
+  }
+}
