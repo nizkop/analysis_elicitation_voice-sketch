@@ -4,8 +4,11 @@ from src.statistical_settings import alpha
 # task_evaluation:
 from src.task_evaluation.statistic_box_plot import get_statistik
 
-get_statistik("switch_amount", alpha=alpha)
-get_statistik("times", alpha=alpha)
+try:
+    get_statistik("switch_amount", alpha=alpha)
+    get_statistik("times", alpha=alpha)
+except:
+    pass
 from src.task_evaluation.overview_difficulty_tasks import overview_difficulty_tasks
 overview_difficulty_tasks()
 

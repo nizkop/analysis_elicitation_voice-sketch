@@ -1,0 +1,4 @@
+statsmodels
+scikit_posthocs
+networkx
+upsetplot
