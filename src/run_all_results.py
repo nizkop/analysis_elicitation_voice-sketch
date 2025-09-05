@@ -2,10 +2,6 @@ from src.coding.CODING_CATEGORIES import CODING_CATEGORIES
 from src.statistical_settings import alpha
 
 # task_evaluation:
-from src.task_evaluation.statistic_box_plot import get_statistik
-
-get_statistik("switch_amount", alpha=alpha)
-get_statistik("times", alpha=alpha)
 from src.task_evaluation.overview_difficulty_tasks import overview_difficulty_tasks
 overview_difficulty_tasks()
 

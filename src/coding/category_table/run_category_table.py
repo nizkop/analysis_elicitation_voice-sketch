@@ -23,4 +23,4 @@ from src.Tasks.task_topic import TaskTopic
 # #Structure Change: moving/sorting + deletion
 
 # df = get_category_table_of_selected_tasks(task_ids, limit_to = CODING_CATEGORIES.LOCATION, info=info)
-df = get_category_table_of_selected_tasks(task_topic=TaskTopic.FORMATTING, limit_to = CODING_CATEGORIES.FULLMOD)
+df = get_category_table_of_selected_tasks(task_topic=TaskTopic.EDITING, limit_to = CODING_CATEGORIES.FULLMOD)

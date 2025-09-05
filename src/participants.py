@@ -100,6 +100,7 @@ p30 = participant("030", Language.DE, living_in = Language.DE)
 p31 = participant("031", Language.DE, living_in = Language.DE)
 p32 = participant("032", Language.DE, living_in = Language.DE)
 p33 = participant("033", Language.DE, living_in = Language.DE)
+p34 = participant("034", Language.DE, living_in = Language.DE)
 # studies by valbjörn:
 p101 = participant("101", Language.EN, living_in = Language.IS)#speaking english
 p102 = participant("102", Language.EN, living_in = Language.IS)#speaking icelandic
@@ -158,6 +159,7 @@ participants = [
     p31,
     p32,
     p33,
+    p34,
     # ICELANDIC:
     p101,
     p102,

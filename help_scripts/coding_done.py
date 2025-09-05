@@ -2,6 +2,10 @@ from src.Tasks.Task import tasks
 from src.TaskJsonKind import TaskJsonKind
 from src.participants import participants
 
+# p1 = participant(1, Language.DE, living_in=Language.DE)
+# p2 = participant(2, Language.EN, living_in=Language.DE)
+#
+# participants = [p1]#,p2]
 
 for t in tasks:
     if t.identifier in ["C", "G"]:

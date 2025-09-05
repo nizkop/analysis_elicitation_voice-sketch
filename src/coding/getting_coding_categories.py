@@ -147,6 +147,6 @@ def run_get_coding_categories():
 
 
 if __name__ == '__main__':
-    run_get_coding_categories()
-    # fig, ax, xx, reference_order, legend_entry4 = get_coding_categories(limit_to=CODING_CATEGORIES.OPERATIONMODLESS, fig=None,
-    #                                                                     ax=None, reference_order=None)
+    # run_get_coding_categories()
+    fig, ax, xx, reference_order, legend_entry4 = get_coding_categories(limit_to=CODING_CATEGORIES.FULLMOD, fig=None,
+                                                                        ax=None, reference_order=None)

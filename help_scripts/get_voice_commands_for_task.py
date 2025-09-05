@@ -36,5 +36,5 @@ def remove_added_info_in_brackets_2(s:str):
 
 if __name__ == '__main__':
     # print( remove_added_info_in_brackets("Dies ist ein (test) string.mit mehreen () (Klammern)") )
-    get_voice_commands_for_task(taskid = "1")
+    get_voice_commands_for_task(taskid = "19")
 
