@@ -21,6 +21,10 @@ get_statistik("switch_amount",alpha=alpha)
 get_statistik("times",alpha=alpha)
 
 
+import src.coding.category_table.number_of_categories_per_task
+import src.coding.category_sizes
+
+
 from src.coding.modalities.time_needed_modalities import time_needed_modalities
 from src.coding.modalities.time_needed_modalities_statistik import time_needed_modalities_statistik
 time_needed_modalities()#1st

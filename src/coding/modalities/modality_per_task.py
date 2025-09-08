@@ -73,7 +73,7 @@ def plot_modality_choice_per_task(modalities:list[str]):
             elif mod == "GUI":
                 s_GUI  += f"Value for 'GUI', task {task},	 {round(height,1)} ,%\n"
             ax.bar(x=task_tick, height=height, bottom=unten, label=mod, color=global_colors[mod], width=0.9)
-            ax.text(task_tick, unten + height / 2, f"{height:.1f}", ha='center', va='center', color='black', fontsize=size_2)
+            ax.text(task_tick, unten + height / 2, f"{height:.1f}", ha='center', va='center', color='black' if unten != 0 else "white", fontsize=size_2)
             unten += height
         task_tick += 1
 

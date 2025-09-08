@@ -11,7 +11,7 @@ class TaskTopic(Enum):
     def get_info_from_task_topic(self):
         # Gibt einfach den Enum-Namen in Kleinbuchstaben zurück
         if self.name == "STRUCTURECHANGE":
-            return "Structure Change"
+            return "Moving"
         return self.name[0].upper() + self.name.lower()[1:]
 
     def order(self):
