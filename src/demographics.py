@@ -48,7 +48,7 @@ def get_demographic_distribution(property_key: str, translation_active: bool = T
     for idx, group_values in enumerate(values_per_group):
         bars = ax.bar(x, group_values, bottom=bottom, color=colors[idx], label=names[groups[idx]])
         bottom += np.array(group_values)
-    print(values_per_group)
+    print(values_per_group, categories)
     total_heights = np.sum(values_per_group, axis=0)
 
     for i, total in enumerate(total_heights):
@@ -73,15 +73,15 @@ def get_demographic_distribution(property_key: str, translation_active: bool = T
 
 
 if __name__ == '__main__':
-    get_demographic_distribution("gender")
+    # get_demographic_distribution("gender")
     # get_demographic_distribution("leftHandedOrRightHanded")
     # get_demographic_distribution("age", False)
 
 
-    # get_demographic_distribution("anyExperienceVoice")
-    # get_demographic_distribution("anyExperiencePen")
-    # get_demographic_distribution("anyExperienceTablet")
-    # get_demographic_distribution("anyExperienceSpreadsheet")
+    get_demographic_distribution("anyExperienceVoice")
+    get_demographic_distribution("anyExperiencePen")
+    get_demographic_distribution("anyExperienceTablet")
+    get_demographic_distribution("anyExperienceSpreadsheet")
 
 
 

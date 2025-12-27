@@ -16,7 +16,8 @@ def one_modality():
         used_modalities_amounts = {
             "GUI": 0,
             "sketch": 0,
-            "voice": 0
+            "voice": 0,
+            "voice+sketch": 0,
         }
         for task in tasks:
             if task.coded(p=p) and not task.missunderstood(p) and not task.skipped(p):
@@ -25,10 +26,13 @@ def one_modality():
                 if category_array is not None and len(category_array) > 0:
                     if "gui" in "".join(category_array).lower():
                         used_modalities_amounts["GUI"] += 1
-                    if "sketch" in "".join(category_array):
+                    if "sketch" in "".join(category_array) and "voice" in "".join(category_array):
+                        used_modalities_amounts["voice+sketch"] += 1
+                    elif "sketch" in "".join(category_array):
                         used_modalities_amounts["sketch"] += 1
-                    if "voice" in "".join(category_array):
+                    elif "voice" in "".join(category_array):
                         used_modalities_amounts["voice"] += 1
+
 
         used_modalities = [key for (key, value) in used_modalities_amounts.items() if value > 0]
         used_modalities = list(set(used_modalities))
@@ -79,10 +83,10 @@ def plot_one_modality():
     ax.set_ylabel(r'Amount of solved tasks [\%]')
     ax.set_ylim(0, 100)  # 0-100 %
     legend = ax.legend(loc='upper center',
-              bbox_to_anchor=(0.7518, 1.15),
+              bbox_to_anchor=(0.5518, 1.15),
               borderaxespad=0,
               title=names["modality"],
-              ncol=3)
+              ncol=4)
     # plt.title("Choosen Modalities per participant")
     save_my_figures("preferred_modality_per_participant", fig=fig, bbox_extra_artists = [legend])
     my_plt.show()

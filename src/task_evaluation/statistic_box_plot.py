@@ -53,8 +53,10 @@ def post_hoc(data_tbl: pd.DataFrame,
     return sig_matrix, groups, n
 
 
-def compact_letter_display(groups, n, sig_matrix):
+def compact_letter_display(groups, n, sig_matrix, print_info:bool=True):
     # Graph bauen: Kante = keine signifikante Differenz
+    if groups is None:
+        return None
     G = nx.Graph()
     G.add_nodes_from(groups)
     for i in range(n):
@@ -80,9 +82,10 @@ def compact_letter_display(groups, n, sig_matrix):
     # Ausgabe als String mit zusammengefassten Buchstaben pro Gruppe
     cld_strings = {g: ''.join(sorted(letters)) for g, letters in letter_dict.items()}
 
-    print("\nCompact Letter Display:")
-    for g in sorted(cld_strings):
-        print(f"{g}: {cld_strings[g]}")
+    if print_info:
+        print("\nCompact Letter Display:")
+        for g in sorted(cld_strings):
+            print(f"{g}: {cld_strings[g]}")
     return cld_strings
 
 

@@ -5,28 +5,116 @@ import numpy as np
 from scipy import stats
 from statsmodels.stats.multitest import multipletests
 
-from src.Tasks.task_topic import TaskTopic
-from src.statistical_settings import alpha
-from src.task_evaluation.statistic_box_plot import compact_letter_display
-from src.coding.modalities.time_needed_modalities import time_needed_modalities
 
+def within_subjects_anova_modality(df, alpha, try_again=False, print_info:bool=True):
+    if df.empty:
+        print("⚠️ DataFrame ist leer – keine ANOVA möglich.")
+        return None, None
 
-def within_subjects_anova(df, alpha):
     df_agg = (
         df.groupby(["id", "modality"], as_index=False)["time"]
           .mean()
     )
-    aov = AnovaRM(df_agg, depvar="time", subject="id", within=["modality"])
-    res = aov.fit()
-    print("\n=== Repeated‑Measures ANOVA ===")
-    print(res)
 
-    p_val = res.anova_table["Pr > F"][0]
-    if p_val < alpha:
-        result = f"→ signifikanter Unterschied zwischen sketch & voice (p = {p_val:.4g})"
-    else:
-        result = f"→ kein signifikanter Unterschied (p = {p_val:.4g})"
-    return df_agg, result
+    try:
+        aov = AnovaRM(df_agg, depvar="time", subject="id", within=["modality"])
+        res = aov.fit()
+        if print_info:
+            print("\n=== Repeated‑Measures ANOVA ===")
+            print(res)
+
+        p_val = res.anova_table["Pr > F"].iloc[0]
+        if p_val < alpha:
+            result = f"→ signifikanter Unterschied zwischen sketch & voice (p = {p_val:.4g})"
+            # Tendency:
+            # Medianberechnung
+            medians = df.groupby("modality")["time"].median()
+            median_voice = medians.get('voice', float('nan'))
+            median_sketch = medians.get('sketch', float('nan'))
+            if median_sketch < median_voice:
+                faster = "sketch"
+                slower = "voice"
+            else:
+                faster = "voice"
+                slower = "sketch"
+            result += (f"\n\t\u001b[1m→ {faster} faster than {slower}\u001b"+
+                       f"[0m (Median: sketch = {median_sketch:.3f} s, voice = {median_voice:.3f} s)")
+        else:
+            result = f"→ kein signifikanter Unterschied (p = {p_val:.4g})"
+        return df_agg, result
+    except ValueError:
+        # Data is unbalanced
+        print("! Task-ID is missing sketch/voice data point -> shortening data:", end="\t", flush=True)
+        if try_again:
+            return None, None
+        # Nur IDs behalten, die alle Modalitäten haben:
+        complete_ids = (
+            df.groupby("id")["modality"].nunique()  # wie viele Modalitäten je ID?
+            .eq(df["modality"].nunique())  # gleich der Gesamtzahl?
+        )
+        df_balanced = df[df["id"].isin(complete_ids[complete_ids].index)]
+
+        #Info: welche IDs bleiben nach der Filterung übrig
+        remaining_ids = sorted(df_balanced["id"].unique())
+        print(f"→ {len(remaining_ids)} complete tasks remaining: {remaining_ids}")
+        return within_subjects_anova_modality(df=df_balanced, alpha=alpha, try_again=True, print_info=print_info)
+
+
+def within_subjects_anova_language(df, alpha, try_again=False, print_info:bool=True):
+    if df.empty:
+        print("⚠️ DataFrame ist leer – keine ANOVA möglich.")
+        return None, None
+
+    df = df.copy()  # ensure we have a real, writable frame
+    df.loc[:, "language"] = df["language"].astype(str)
+
+    df_agg = (
+        df.groupby(["id", "language"], as_index=False)["time"]
+          .mean()
+    )
+
+    try:
+        aov = AnovaRM(df_agg, depvar="time", subject="id", within=["language"])
+        res = aov.fit()
+        if print_info:
+            print("\n=== Repeated‑Measures ANOVA ===")
+            print(res)
+
+        p_val = res.anova_table["Pr > F"].iloc[0]
+        if p_val < alpha:
+            result = f"→ signifikanter Unterschied zwischen DE & EN (p = {p_val:.4g})"
+            # Tendency:
+            # Medianberechnung
+            medians = df.groupby("language")["time"].median()
+            median_EN = medians.get('Language.EN', float('nan'))
+            median_DE = medians.get('Language.DE', float('nan'))
+            if median_DE < median_EN:
+                faster = "DE"
+                slower = "EN"
+            else:
+                faster = "EN"
+                slower = "DE"
+            result += (f"\n\t\u001b[1m→ {faster} faster than {slower}\u001b"+
+                       f"[0m (Median: DE = {median_DE:.3f} s, EN = {median_EN:.3f} s)")
+        else:
+            result = f"→ kein signifikanter Unterschied (p = {p_val:.4g})"
+        return df_agg, result
+    except ValueError:
+        # Data is unbalanced
+        print("! Task-ID is missing DE/EN data point -> shortening data:", end="\t", flush=True)
+        if try_again:
+            return None, None
+        # Nur IDs behalten, die alle Modalitäten haben:
+        complete_ids = (
+            df.groupby("id")["language"].nunique()  # wie viele Modalitäten je ID?
+            .eq(df["language"].nunique())  # gleich der Gesamtzahl?
+        )
+        df_balanced = df[df["id"].isin(complete_ids[complete_ids].index)]
+
+        #Info: welche IDs bleiben nach der Filterung übrig
+        remaining_ids = sorted(df_balanced["id"].unique())
+        print(f"→ {len(remaining_ids)} complete tasks remaining: {remaining_ids}")
+        return within_subjects_anova_language(df=df_balanced, alpha=alpha, try_again=True, print_info=print_info)
 
 
 
@@ -41,6 +129,8 @@ def post_hoc_within(data_tbl: pd.DataFrame,
     Returns a significance matrix (True = no significant difference),
     the list of group names and the number of groups (n).
     """
+    if data_tbl is None or data_tbl.empty:
+        return None, None, None
     groups = data_tbl[group_col].unique()
     n_groups = len(groups)
 
@@ -61,6 +151,8 @@ def post_hoc_within(data_tbl: pd.DataFrame,
     triu_idx = np.triu_indices(n_groups, k=1)
     p_vals = p_matrix[triu_idx]
 
+    assert len(p_vals) > 0, "No p-values available for multiple testing correction!"
+
     reject, p_corr, _, _ = multipletests(p_vals, alpha=alpha, method="holm")
     p_matrix[triu_idx] = p_corr
     p_matrix[(triu_idx[1], triu_idx[0])] = p_corr   # spiegeln
@@ -70,72 +162,4 @@ def post_hoc_within(data_tbl: pd.DataFrame,
 
 
 
-def time_needed_modalities_statistik():
-    data_table, fig, ax, ax2 = time_needed_modalities() #update csv
-    df = pd.read_csv("boxplot_time_needed.csv")   # id, modality, time
 
-    # gesamt:
-    df_agg, result_total = within_subjects_anova(alpha=alpha, df = df)
-    sig_matrix, groups, n = post_hoc_within(df_agg, alpha=alpha)
-    cld_strings_total = compact_letter_display(groups, n, sig_matrix)
-
-    # group A:
-    df_A = df[df['group'] == 'A']
-    df_agg, result_A = within_subjects_anova(alpha=alpha, df = df_A)
-    sig_matrix, groups, n = post_hoc_within(df_agg, alpha=alpha)
-    cld_strings_A = compact_letter_display(groups, n, sig_matrix)
-
-    # group B:
-    df_B = df[df['group'] == 'B']
-    df_agg, result_B = within_subjects_anova(alpha=alpha, df = df_B)
-    sig_matrix, groups, n = post_hoc_within(df_agg, alpha=alpha)
-    cld_strings_B = compact_letter_display(groups, n, sig_matrix)
-
-    # group C:
-    df_C = df[df['group'] == 'C']
-    df_agg, result_C = within_subjects_anova(alpha=alpha, df = df_C)
-    sig_matrix, groups, n = post_hoc_within(df_agg, alpha=alpha)
-    cld_strings_C = compact_letter_display(groups, n, sig_matrix)
-
-    # Task Topic Editing:
-    df_edit = df[df['topic'] == TaskTopic.EDITING.name]
-    df_agg, result_edit = within_subjects_anova(alpha=alpha, df = df_edit)
-    sig_matrix, groups, n = post_hoc_within(df_agg, alpha=alpha)
-    cld_strings_edit = compact_letter_display(groups, n, sig_matrix)
-
-    # FORMATTING:
-    df_format = df[df['topic'] == TaskTopic.FORMATTING.name]
-    df_agg, result_edit = within_subjects_anova(alpha=alpha, df = df_format)
-    sig_matrix, groups, n = post_hoc_within(df_agg, alpha=alpha)
-    cld_strings_format = compact_letter_display(groups, n, sig_matrix)
-
-    # CALCULATION:
-    df_calc = df[df['topic'] == TaskTopic.CALCULATION.name]
-    df_agg, result_edit = within_subjects_anova(alpha=alpha, df = df_calc)
-    sig_matrix, groups, n = post_hoc_within(df_agg, alpha=alpha)
-    cld_strings_calc = compact_letter_display(groups, n, sig_matrix)
-
-    # STRUCTURECHANGE
-    df_struc = df[df['topic'] == TaskTopic.STRUCTURECHANGE.name]
-    df_agg, result_edit = within_subjects_anova(alpha=alpha, df=df_struc)
-    sig_matrix, groups, n = post_hoc_within(df_agg, alpha=alpha)
-    cld_strings_struc = compact_letter_display(groups, n, sig_matrix)
-
-    print()
-    print("gesamt", result_total, "->", cld_strings_total)
-    print("group A", result_A, "->", cld_strings_A)
-    print("group B", result_B, "->", cld_strings_B)
-    print("group C", result_C, "->", cld_strings_C)
-    print("topic Editing", result_edit, "->", cld_strings_edit)
-    print("topic Formatting", result_edit, "->", cld_strings_format)
-    print("topic Calculation", result_edit, "->", cld_strings_calc)
-    print("topic StructureChange", result_edit, "->", cld_strings_struc)
-
-
-
-
-
-
-
-if __name__ == "__main__":
-    time_needed_modalities_statistik()

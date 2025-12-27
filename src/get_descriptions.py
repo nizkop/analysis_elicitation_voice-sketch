@@ -16,6 +16,7 @@ names = {
     "ort":  'Participation in...',
     "age": "Age Range [Years]",
     "gender": "Gender [ ]",
+    "language": "Chosen Language [ ]",
     "leftHandedOrRightHanded": "Dominant Hand [ ]",
     "de": "Germany",
     "is": "Iceland",
@@ -25,4 +26,8 @@ names = {
     "groupA": r"\textcircled{\raisebox{-0.275ex}{A}}",#Ⓐ
     "groupB": r"\textcircled{\raisebox{-0.275ex}{B}}",#Ⓑ
     "groupC": r"\textcircled{\raisebox{-0.275ex}{C}}",#Ⓒ
+    "anyExperienceVoice": "Voice Experience",
+    "anyExperiencePen": "Stylus Experience",
+    "anyExperienceTablet": "Tablet Experience",
+    "anyExperienceSpreadsheet": "Spreadsheet Experience",
 }

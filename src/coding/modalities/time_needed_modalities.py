@@ -209,3 +209,4 @@ def time_needed_modalities():
 
 if __name__ == "__main__":
     data_table, fig, ax, ax2 = time_needed_modalities()
+    #TODO Use alternative implementation: CollectionOfPureSketchOrVoiceTimings
